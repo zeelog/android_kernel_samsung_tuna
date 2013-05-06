@@ -16,6 +16,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_DYNAMIC_INTERACTIVE)  += cpufreq_dynamic_interactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_KTOONSERVATIVE) += cpufreq_ktoonservative.o
 obj-$(CONFIG_CPU_FREQ_GOV_ZENERACTIVE)  	+= cpufreq_zeneractive.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVEX)	+= cpufreq_interactivex.o
+obj-$(CONFIG_CPU_FREQ_GOV_ZZMOOVE)      += cpufreq_zzmoove.o
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o

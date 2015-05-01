@@ -38,7 +38,7 @@
 #define DEF_BOOST_CPU_TURN_ON_2ND_CORE		(1)
 #define DEF_BOOST_GPU				(450)
 #define DEF_BOOST_HOLD_CYCLES			(22)
-#define DEF_DISABLE_HOTPLUGGING			(0)
+#define DEF_DISABLE_HOTPLUGGING			(1)
 
 /*
  * The polling frequency of this governor depends on the capability of

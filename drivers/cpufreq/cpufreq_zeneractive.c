@@ -400,7 +400,7 @@ static int cpufreq_zeneractive_hotplug_task(void *data)
 
 		 /* Ensure it has been unplug_delay since our last attempt*/
 		for_each_online_cpu(cpu) {
-			if (cpu == 0 || cpu > 3)
+			if (cpu == 0)
 				continue;
 			//--Have we been below unplug load for unplug_delay?
 			if (pcpu->total_below_unplug_time[cpu - 1] > unplug_delay)
@@ -408,7 +408,7 @@ static int cpufreq_zeneractive_hotplug_task(void *data)
 		}
 
 		for_each_cpu_not(cpu, cpu_online_mask) {
-			if (cpu == 0 || cpu > 3)
+			if (cpu == 0)
 				continue;
 			//--Have we been above unplug_load for insert delay?
 			if (pcpu->total_above_unplug_time[cpu - 1] > insert_delay)

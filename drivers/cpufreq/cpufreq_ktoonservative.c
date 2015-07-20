@@ -769,29 +769,15 @@ void boostpulse_relay(void)
 }
 
 static void hotplug_offline_work_fn(struct work_struct *work)
-{
-	int cpu;
-	//pr_info("ENTER OFFLINE");
-	for_each_online_cpu(cpu) {
-		if (likely(cpu_online(cpu) && (cpu))) {
-			cpu_down(cpu);
-			//pr_info("auto_hotplug: CPU%d down.\n", cpu);
-			break;
-		}
-	}
+{	
+	cpu_down(1);
+	//pr_info("auto_hotplug: CPU%d down.\n", cpu);
 }
 
 static void hotplug_online_work_fn(struct work_struct *work)
 {
-	int cpu;
-	//pr_info("ENTER ONLINE");
-	for_each_possible_cpu(cpu) {
-		if (likely(!cpu_online(cpu) && (cpu))) {
-			cpu_up(cpu);
-			//pr_info("auto_hotplug: CPU%d up.\n", cpu);
-			break;
-		}
-	}
+	cpu_up(1);
+	//pr_info("auto_hotplug: CPU%d down.\n", cpu);
 }
 
 static void do_dbs_timer(struct work_struct *work)

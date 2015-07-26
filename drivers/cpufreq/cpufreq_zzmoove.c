@@ -6599,6 +6599,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 #ifdef ZZMOOVE_DEBUG
 		pr_info("[zzmoove/dbs_check_cpu] 1 core - block up: %d, block down: %d\n", zz_hotplug_block_up_cycles, zz_hotplug_block_down_cycles);
 #endif
+#if (MAX_CORES == 4 || MAX_CORES == 8)
 	} else if (num_online_cpus == 2) {
 #ifdef ZZMOOVE_DEBUG
 		pr_info("[zzmoove/dbs_check_cpu] 2 cores\n");
@@ -6627,6 +6628,9 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		pr_info("[zzmoove/dbs_check_cpu] 4 cores - block up: %d, block down: %d\n", zz_hotplug_block_up_cycles, zz_hotplug_block_down_cycles);
 #endif
 	}
+#else
+	}
+#endif /* (MAX_CORES == 4 || MAX_CORES == 8) */
 
 	// ff: make sure counters are synced
 	if (num_online_cpus != num_online_cpus_last) {

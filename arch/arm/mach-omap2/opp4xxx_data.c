@@ -855,7 +855,7 @@ int __init omap4_opp_init(void)
 	omap4_opp_enable("mpu", 1350000000);
 	omap4_opp_enable("mpu", 1500000000);
 	omap4_opp_enable("mpu", 1632000000);
-	omap4_opp_enable("mpu", 1747200000);
+	//omap4_opp_enable("mpu", 1747200000);
 #else
 	/* Enable Nitro and NitroSB MPU OPPs */
 	if (omap4_has_mpu_1_2ghz())

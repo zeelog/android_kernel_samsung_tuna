@@ -77,8 +77,8 @@ extern void kt_is_active_benabled_power(bool val);
 #define MAX_SAMPLING_DOWN_FACTOR		(10)
 #define TRANSITION_LATENCY_LIMIT		(10 * 1000 * 1000)
 
-struct work_struct hotplug_offline_work;
-struct work_struct hotplug_online_work;
+struct work_struct kt_hotplug_offline_work;
+struct work_struct kt_hotplug_online_work;
 
 static void do_dbs_timer(struct work_struct *work);
 
@@ -649,7 +649,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		{
 			if (Lcpu_up_block_cycles > dbs_tuners_ins.cpu_down_block_cycles && (dbs_tuners_ins.no_2nd_cpu_screen_off == 0 || (dbs_tuners_ins.no_2nd_cpu_screen_off == 1 && screen_is_on)))
 			{
-				schedule_work_on(0, &hotplug_online_work);
+				schedule_work_on(0, &kt_hotplug_online_work);
 				Lcpu_up_block_cycles = 0;
 			}
 			Lcpu_up_block_cycles++;
@@ -684,7 +684,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		{
 			if (Lcpu_down_block_cycles > dbs_tuners_ins.cpu_down_block_cycles)
 			{
-				schedule_work_on(0, &hotplug_offline_work);
+				schedule_work_on(0, &kt_hotplug_offline_work);
 				Lcpu_down_block_cycles = 0;
 			}
 			Lcpu_down_block_cycles++;
@@ -745,7 +745,7 @@ void boostpulse_relay(void)
 				//boost_the_gpu(dbs_tuners_ins.boost_gpu, 0);
 		}
 		if (num_online_cpus() < 2 && dbs_tuners_ins.boost_turn_on_2nd_core)
-			schedule_work_on(0, &hotplug_online_work);
+			schedule_work_on(0, &kt_hotplug_online_work);
 		else if (dbs_tuners_ins.boost_turn_on_2nd_core == 0 && dbs_tuners_ins.boost_cpu == 0 && dbs_tuners_ins.boost_gpu == 0)
 			return;
 
@@ -942,8 +942,8 @@ struct cpufreq_governor cpufreq_gov_ktoonservative = {
 
 static int __init cpufreq_gov_dbs_init(void)
 {
-	INIT_WORK(&hotplug_offline_work, hotplug_offline_work_fn);
-	INIT_WORK(&hotplug_online_work, hotplug_online_work_fn);
+	INIT_WORK(&kt_hotplug_offline_work, hotplug_offline_work_fn);
+	INIT_WORK(&kt_hotplug_online_work, hotplug_online_work_fn);
 	
 	return cpufreq_register_governor(&cpufreq_gov_ktoonservative);
 }

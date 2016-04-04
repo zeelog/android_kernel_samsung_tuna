@@ -1139,8 +1139,11 @@ static void s6e8aa0_adjust_brightness_from_mtp(struct s6e8aa0_data *s6)
 #ifdef CONFIG_COLOR_CONTROL
 void colorcontrol_update(bool multiplier_updated)
 {
-    if (multiplier_updated)
+    if (multiplier_updated) {
+	dsi_bus_lock(lcd_dev);
 	s6e8aa0_adjust_brightness_from_mtp(s6_data);
+	dsi_bus_unlock(lcd_dev);
+    }
 
     if (lcd_dev->state == OMAP_DSS_DISPLAY_ACTIVE) {
 	dsi_bus_lock(lcd_dev);
